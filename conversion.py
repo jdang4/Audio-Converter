@@ -57,16 +57,13 @@ def main() :
 
 	path = '/home/' + usr_name + '/Music'
 
-	#path2 = '/home/jonathan/Music/WMA'
-	#path3 = '/home/jonathan/Music/MP3'
-
 	audio_file_types = ["mp3", "wma", "m4a", "wav", "ogg", "aac", "ac3"]
 
 	print(", ".join(['{0}'.format(audio) for audio in audio_file_types]));
 
 	
 	while True :
-
+		
 		original_audioFile = str(input("Enter the audio file type you want to change: "))
 
 		if original_audioFile not in audio_file_types :
@@ -116,8 +113,6 @@ def main() :
 	convert(original_audioFile, new_audioFile, path2, path3)
 
 
-
-#convert('wma', 'mp3', '/home/jonathan/Music/wma', '/home/jonathan/Music/mp3')
 
 main()
 
