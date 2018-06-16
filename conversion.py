@@ -52,30 +52,22 @@ def convert(original, new, src, dest) :
 
 
 def main() :
-
 	usr_name = getpass.getuser()
-
 	path = '/home/' + usr_name + '/Music'
-
 	audio_file_types = ["mp3", "wma", "m4a", "wav", "ogg", "aac", "ac3"]
 
 	print(", ".join(['{0}'.format(audio) for audio in audio_file_types]));
 
 	
 	while True :
-		
 		original_audioFile = str(input("Enter the audio file type you want to change: "))
 
 		if original_audioFile not in audio_file_types :
 			print ("Invalid audio file type")
 			continue
-
 		else :
-
 			custom_directory = os.path.dirname(path + '/' + original_audioFile + '/')
-
 			path2 = path + '/' + original_audioFile
-
 			if not os.path.exists(custom_directory) : 
 				os.makedirs(custom_directory)
 				print("Created a directory to hold all the " + original_audioFile + " files")
@@ -83,16 +75,12 @@ def main() :
 			break
 
 	while True :
-
 		new_audioFile = input("Enter the aduio file type you want to change to: ")
-
 		if new_audioFile not in audio_file_types :
 			print ("Invalid audio file type")
 			continue
-
 		else :
 			custom_directory_2 = os.path.dirname(path + '/' + new_audioFile + '/')
-
 			path3 = path + '/' + new_audioFile
 
 			if not os.path.exists(custom_directory_2) : 
@@ -102,11 +90,9 @@ def main() :
 			break
 
 	missed_directory = os.path.dirname(path + '/Missed/')
-	
 	if not os.path.exists(missed_directory) :
 		os.makedirs(missed_directory)
 		print("Created a directory to hold all the files that weren't converted")
-
 
 	transferFiles(original_audioFile, path, path2)
 
