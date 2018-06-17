@@ -4,14 +4,39 @@ import os, shutil, glob
 import getpass
 import subprocess
 
+def check_for_existing_file(basename, dest) :
+	file_exists = 0
+	for file in os.listdir(dest) :
+		if basename == file :
+			file_exists += 0
+		else :
+			file_exists += 1
+
+	return file_exists
+
 def transferFiles(filetype, src, dest) :
 	files = glob.iglob(os.path.join(src, "*." + str(filetype)))
 	for file in files :
 		if os.path.isfile(file) :
 			baseFile = os.path.basename(file)
 			baseFolder = os.path.basename(dest)
-			shutil.move(file, dest)
-		print (baseFile + " has been transferred to " + baseFolder)
+			#shutil.copy(file, dest)
+			#shutil.move(os.path.join(src, baseFile), os.path.join(dest, baseFile))
+			#source = os.listdir()
+			path, dirs, files3 = next(os.walk(dest))
+			file_count = len(files3)
+			#print (file_count)
+			
+			result = check_for_existing_file(baseFile, dest)
+
+			if (result == file_count) :
+				shutil.move(file, dest)
+				print (baseFile + " has been transferred to " + baseFolder)
+
+			else :
+				print ("File already exists")
+				print (baseFile + " will be deleted")
+				os.remove(file)
 
 
 def convert(original, new, src, dest) :
@@ -34,8 +59,6 @@ def convert(original, new, src, dest) :
 			newFile_string = str(newFile).replace(' ', '\ ').replace('(', '\(').replace(')', '\)').replace("'", "\\'")
 
 			command = "ffmpeg -i " + str(file_string) + ' ' + str(newFile_string)
-			#print(file)
-			#subprocess.check_call(command, shell=True)
 			result = os.system(command)
 
 			if (result != 0) :
@@ -44,7 +67,6 @@ def convert(original, new, src, dest) :
 			if (os.path.isfile(newFile)):
 				print(original_base + " has successfully been converted to " + new_base)
 				transferFiles("mp3", src, dest)
-
 			else :
 				print("Something went wrong with moving the file")
 
@@ -118,6 +140,8 @@ def main() :
 
 
 #convert('wma', 'mp3', '/home/jonathan/Music/wma', '/home/jonathan/Music/mp3')
+
+#transferFiles("wma", '/home/jonathan/Music', '/home/jonathan/Music/wma')
 
 main()
 
